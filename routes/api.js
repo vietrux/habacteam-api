@@ -40,6 +40,31 @@ router.get('/hmc', async function (req, res, next) {
   })
 });
 
+router.get('/hcfs', function(req, res, next) {
+  //update user data
+  await updateDoc(doc(db, "cfs-box-users", user.uid), {
+    cfs_per_day: 0,
+    write_time: new Date().toLocaleString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      timeZone: "Asia/Ho_Chi_Minh"
+    }),
+    status: true,
+  });
+  res.json({
+    status: 200,
+    data: [new Date().toLocaleString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "numeric",
+      hour12: true,
+      timeZone: "Asia/Ho_Chi_Minh"
+    })],
+  })
+});
+
 router.get('*', function(req, res, next) {
   res.json({
     status: 200,
