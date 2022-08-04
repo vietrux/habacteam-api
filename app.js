@@ -42,7 +42,7 @@ const apiLimiter = rateLimit({
   }
 });
 
-app.use('/', indexRouter);
+app.use('/', apiLimiter, indexRouter);
 app.use('/api', apiLimiter, apiRouter);
 
 module.exports = app;
