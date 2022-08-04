@@ -5,7 +5,7 @@ var db = require('../config/firebase').db;
 require("firebase/firestore");
 
 /* GET users listing. */
-router.post('/hmc', async function (req, res, next) {
+router.get('/hmc', async function (req, res, next) {
   //lay du liệu từ facebook
   const access_token = process.env.HMC_ACCESS_TOKEN;
   const api_url = "https://graph.facebook.com/";
