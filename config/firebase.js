@@ -1,7 +1,10 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
-const serviceAccount = require('./habacteam-firebase-adminsdk-jfusp-a5a9396989.json');
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
 
 initializeApp({
   credential: cert(serviceAccount)
