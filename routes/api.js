@@ -40,10 +40,10 @@ router.get('/hmc', async function (req, res, next) {
   })
 });
 
-router.get('/hcfs', function (req, res, next) {
+router.get('/hcfs',async function (req, res, next) {
   const userRef = db.collection('cfs-box-users');
   const snapshot = await userRef.get();
-  snapshot.forEach(doc => {
+  snapshot.forEach(async (doc) => {
     await updateDoc(doc(db, "cfs-box-users", doc.id), {
       cfs_per_day: 0,
       status: true,
