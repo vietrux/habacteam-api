@@ -52,12 +52,12 @@ router.get('/hmc', async function (req, res, next) {
 
 router.get('/hcfs', async function (req, res, next) {
   try {
-    const userRef = db.collection('cfs-box-users');
+    const userRef = db.collection('users');
     const snapshot = await userRef.get();
     snapshot.forEach(async (doc) => {
-      await db.collection('cfs-box-users').doc(doc.id).update({
+      await db.collection('users').doc(doc.id).update({
         cfs_per_day: 0,
-        status: true,
+        cfs_status: true,
       })
     });
     res.json({
