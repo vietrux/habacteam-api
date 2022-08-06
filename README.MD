@@ -1,5 +1,5 @@
 # habacteam-api
-This is HaBacTeam's website. It is a website that is dedicated to the development of the HabacTeam project.
+This is HaBacTeam's API. 
 
 ## Setup
 ```
