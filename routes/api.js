@@ -54,8 +54,8 @@ router.get('/hcfs', async function (req, res, next) {
   try {
     const userRef = db.collection('users');
     const snapshot = await userRef.get();
-    await snapshot.forEach(async (doc) => {
-      await db.collection('users').doc(doc.id).update({
+    snapshot.forEach(async (doc) => {
+      db.collection('users').doc(doc.id).update({
         cfs_per_day: 0,
         cfs_status: true,
       })
