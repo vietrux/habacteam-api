@@ -54,27 +54,24 @@ router.get('/hcfs', async function (req, res, next) {
   try {
     const userRef = db.collection('users');
     const snapshot = await userRef.get();
-    async function updateUser(listuser) {
-      listuser.forEach(async (doc) => {
-        await db.collection('users').doc(doc.id).update({
-          cfs_per_day: 0,
-          cfs_status: true,
-        })
-      });
-      res.json({
-        status: 200,
-        message: "Cfs box users updated",
-        data: [new Date().toLocaleString("en-US", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-          hour: "numeric",
-          hour12: true,
-          timeZone: "Asia/Ho_Chi_Minh"
-        })],
+    await snapshot.forEach(async (doc) => {
+      await db.collection('users').doc(doc.id).update({
+        cfs_per_day: 0,
+        cfs_status: true,
       })
-    }
-    await updateUser(snapshot);
+    });
+    res.json({
+      status: 200,
+      message: "Cfs box users updated",
+      data: [new Date().toLocaleString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "numeric",
+        hour12: true,
+        timeZone: "Asia/Ho_Chi_Minh"
+      })],
+    })
   } catch (error) {
     res.json({
       status: 500,
