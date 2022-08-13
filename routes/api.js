@@ -61,20 +61,20 @@ router.get('/hcfs', async function (req, res, next) {
           cfs_status: true,
         })
       });
+      res.json({
+        status: 200,
+        message: "Cfs box users updated",
+        data: [new Date().toLocaleString("en-US", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "numeric",
+          hour12: true,
+          timeZone: "Asia/Ho_Chi_Minh"
+        })],
+      })
     }
     await updateUser(snapshot);
-    res.json({
-      status: 200,
-      message: "Cfs box users updated",
-      data: [new Date().toLocaleString("en-US", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "numeric",
-        hour12: true,
-        timeZone: "Asia/Ho_Chi_Minh"
-      })],
-    })
   } catch (error) {
     res.json({
       status: 500,
