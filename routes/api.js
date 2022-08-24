@@ -18,9 +18,9 @@ router.get('/hmc', async function (req, res, next) {
     const facebook_result = await axios.get(full_url)
     const data = facebook_result.data;
     //cap nhat du lieu vao firebase
-    await db.collection('facebook').doc('hmc').set(data);
+    db.collection('facebook').doc('hmc').update(data);
     //cap nhat thoi gian cap nhat
-    await db.collection('facebook').doc('update_time_hmc').set({
+    await db.collection('facebook').doc('update_time_hmc').update({
       time: new Date().toLocaleString("en-US", {
         year: "numeric",
         month: "2-digit",
@@ -62,9 +62,9 @@ router.get('/hr', async function (req, res, next) {
     const facebook_result = await axios.get(full_url)
     const data = facebook_result.data;
     //cap nhat du lieu vao firebase
-    await db.collection('facebook').doc('hr').set(data);
+    db.collection('facebook').doc('hr').update(data);
     //cap nhat thoi gian cap nhat
-    await db.collection('facebook').doc('update_time_hr').set({
+    await db.collection('facebook').doc('update_time_hr').update({
       time: new Date().toLocaleString("en-US", {
         year: "numeric",
         month: "2-digit",
