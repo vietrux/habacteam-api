@@ -125,20 +125,6 @@ router.get('/hcfs', async function (req, res, next) {
   }
 });
 
-router.get('/mess', async function (req, res, next) {
-  getMessaging().send({
-    topic: "hbteam",
-    notification: {
-      title: "HaBacTeam",
-      body: "[New!] Co 1 thong bao moi"
-    }
-  })
-  res.json({
-    status: 200,
-    message: "Test",
-  })
-})
-
 router.get('/register', async function (req, res, next) {
   try {
     console.log("register")
