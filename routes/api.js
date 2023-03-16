@@ -3,6 +3,7 @@ var router = express.Router();
 var axios = require('axios');
 var db = require('../config/firebase').db;
 require("firebase/firestore");
+const { getMessaging } = require('firebase-admin/messaging');
 
 
 
@@ -122,6 +123,65 @@ router.get('/hcfs', async function (req, res, next) {
       data: error
     })
   }
+});
+
+router.get('/mess', async function (req, res, next) {
+  getMessaging().send({
+    topic: "hbteam",
+    notification: {
+      title: "HaBacTeam",
+      body: "[New!] Co 1 thong bao moi"
+    }
+  })
+  res.json({
+    status: 200,
+    message: "Test",
+  })
+})
+
+router.get('/register', async function (req, res, next) {
+  try {
+    console.log("register")
+    var registrationTokens = [];
+    //get list of registration tokens
+    const userRef = db.collection('messToken');
+    const snapshot = await userRef.get();
+    snapshot.forEach(async (doc) => {
+      //get all value of each key in object
+      for (var key in doc.data()) {
+        registrationTokens.push(doc.data()[key])
+      }
+    });
+
+    console.log(registrationTokens)
+    // Subscribe the devices corresponding to the registration tokens to the
+    // topic.
+    getMessaging().subscribeToTopic(registrationTokens, "hbteam")
+      .then((response) => {
+       res.json({
+          status: 200,
+          message: "Register successfully",
+          data: [new Date().toLocaleString("en-US", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "numeric",
+            hour12: true,
+            timeZone: "Asia/Ho_Chi_Minh"
+          })],
+        })
+      })
+      .catch((error) => {
+        console.log('Error subscribing to topic:', error);
+      });
+  } catch (error) {
+    res.json({
+      status: 500,
+      data: error
+    })
+  }
+
+
 });
 
 router.get('*', function (req, res, next) {
